@@ -9,6 +9,7 @@ class TcpServer:
         self.tcpServerSocket=socket.socket()#创建socket对象
         hostname= socket.gethostname()#获取本地主机名
         sysinfo = socket.gethostbyname_ex(hostname)
+        print(sysinfo)
         hostip=sysinfo[2][2]
         self.tcpServerSocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)#让端口可以复用
         self.tcpServerSocket.bind((hostip,self.port))#将地址与套接字绑定，且套接字要求是从未被绑定过的
@@ -18,9 +19,9 @@ class TcpServer:
         self.receive_listener = receive_listener
     def server(self):
         while True:
-            print("等待连接")
+            print("Waiting connect")
             self.clientSocket, addr = self.tcpServerSocket.accept()  
-            print ('连接地址：', addr)
+            print ('Connect host：', addr)
             if self.connected_listener:
                 self.connected_listener()
             while True:
